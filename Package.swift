@@ -18,7 +18,10 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0"),
+        .package(
+            url: "https://github.com/apple/swift-syntax.git",
+            "509.0.2"..<"509.1.0"
+        ),
     ],
     targets: [
         .macro(
@@ -28,7 +31,6 @@ let package = Package(
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
             ]
         ),
-        
         .target(
             name: "LogMacro",
             dependencies: [
