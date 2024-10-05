@@ -22,7 +22,7 @@
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/Roy-wonji/LogMacro.git", from: "1.0.0")
+        .package(url: "https://github.com/Roy-wonji/LogMacro.git", from: "1.0.1")
     ],
     ...
 )
