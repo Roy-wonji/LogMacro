@@ -112,19 +112,15 @@ public struct LogCustomMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        // Ensure there are at least two arguments: category and message
         guard node.argumentList.count >= 2 else {
             fatalError("compiler bug: the macro does not have enough arguments")
         }
 
-        // Extract category and message separately
         let category = node.argumentList.first!.expression
         let message = node.argumentList.dropFirst().first!.expression
 
-        // Extract remaining arguments
         let arguments = node.argumentList.dropFirst(2).map { "\($0.expression)" }.joined(separator: ", ")
 
-        // Construct the final expression without labels for `message` and `arguments`
         if arguments.isEmpty {
             return "Log.custom(category: \(category), \(message))"
         } else {

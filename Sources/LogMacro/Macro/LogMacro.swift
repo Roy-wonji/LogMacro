@@ -4,6 +4,10 @@
 import OSLog
 
 @freestanding(expression)
+public macro stringify<T>(_ value: T) -> (T, String) = #externalMacro(module: "LogMacroMacro", type: "StringifyMacro")
+
+
+@freestanding(expression)
 public macro logDebug(_ message: Any, _ arguments: Any...) = #externalMacro(module: "LogMacroMacro", type: "LogDebugMacro")
 
 @freestanding(expression)
