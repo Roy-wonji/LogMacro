@@ -133,16 +133,6 @@ public struct LogCustomMacro: ExpressionMacro {
     }
 }
 
-@main
-struct MyMacroPlugin: CompilerPlugin {
-    let providingMacros: [Macro.Type] = [
-        LogDebugMacro.self,
-        LogInfoMacro.self,
-        LogNetworkMacro.self,
-        LogTestMacro.self,
-        LogErrorMacro.self,
-        LogCustomMacro.self,
-    ]
-}
+
 
 
