@@ -6,3 +6,4 @@
 //
 
 @_exported import LogMacroMacro
+@_exported import OSLog
