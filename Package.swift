@@ -12,10 +12,10 @@ let package = Package(
             name: "LogMacro",
             targets: ["LogMacro"]
         ),
-        .executable(
-            name: "LogMacroClient",
-            targets: ["LogMacroClient"]
-        ),
+//        .executable(
+//            name: "LogMacroClient",
+//            targets: ["LogMacroClient"]
+//        ),
     ],
     dependencies: [
         .package(
