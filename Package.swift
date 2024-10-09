@@ -6,7 +6,7 @@ import CompilerPluginSupport
 
 let package = Package(
     name: "LogMacro",
-    platforms: [.iOS(.v12), .macOS(.v10_15)],
+    platforms: [.iOS(.v13), .macOS(.v10_15)],
     products: [
         .library(
             name: "LogMacro",
