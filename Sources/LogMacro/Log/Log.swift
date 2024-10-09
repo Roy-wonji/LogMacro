@@ -84,13 +84,12 @@ public struct Log {
         level: LogLevel
     ) {
         #if DEBUG
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, macOS 11.0, *) {  // macOS 11.0 이상에서 Logger 사용
             let extraMessage: String = arguments.map({ String(describing: $0) }).joined(separator: " ")
             let logger = Logger(subsystem: OSLog.subsystem, category: level.category)
             let logMessage = "\(message) \(extraMessage)"
             switch level {
-            case .debug,
-                    .custom, .test:
+            case .debug, .custom, .test:
                 logger.debug("\(logMessage, privacy: .public)")
             case .info:
                 logger.info("\(logMessage, privacy: .public)")
@@ -99,7 +98,7 @@ public struct Log {
             case .error:
                 logger.error("\(logMessage, privacy: .public)")
             }
-        } else {
+        } else if #available(iOS 12.0, macOS 10.15, *) {  // iOS 12.0, macOS 10.15 이상에서 os_log 사용
             let extraMessage: String = arguments.map({ String(describing: $0) }).joined(separator: " ")
             os_log("%{public}@", log: level.osLog, type: level.osLogType, "\(message) \(extraMessage)")
         }

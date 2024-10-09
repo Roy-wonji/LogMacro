@@ -6,7 +6,7 @@
 ![Platform](https://img.shields.io/badge/platforms-macOS%2010.5-red)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FMonsteel%2FLogMacro&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-💁🏻‍♂️ iOS15+ 를 지원합니다.<br>
+💁🏻‍♂️ iOS12+ 를 지원합니다.<br>
 💁🏻‍♂️ Log을 기반으로 하여 구현되었습니다.<br>
 
 ## 장점
