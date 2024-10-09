@@ -17,11 +17,11 @@ public struct LogDebugMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let message = node.argumentList.first?.expression else {
+        guard let message = node.arguments.first?.expression else {
             fatalError("compiler bug: the macro does not have any arguments")
         }
 
-        let arguments = node.argumentList.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
+        let arguments = node.arguments.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
 
         if arguments.isEmpty {
             return "Log.debug(\(message))"
@@ -36,11 +36,11 @@ public struct LogInfoMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let message = node.argumentList.first?.expression else {
+        guard let message = node.arguments.first?.expression else {
             fatalError("compiler bug: the macro does not have any arguments")
         }
 
-        let arguments = node.argumentList.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
+        let arguments = node.arguments.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
 
         if arguments.isEmpty {
             return "Log.info(\(message))"
@@ -55,11 +55,11 @@ public struct LogNetworkMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let message = node.argumentList.first?.expression else {
+        guard let message = node.arguments.first?.expression else {
             fatalError("compiler bug: the macro does not have any arguments")
         }
 
-        let arguments = node.argumentList.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
+        let arguments = node.arguments.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
 
         if arguments.isEmpty {
             return "Log.network(\(message))"
@@ -74,11 +74,11 @@ public struct LogTestMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let message = node.argumentList.first?.expression else {
+        guard let message = node.arguments.first?.expression else {
             fatalError("compiler bug: the macro does not have any arguments")
         }
 
-        let arguments = node.argumentList.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
+        let arguments = node.arguments.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
 
         if arguments.isEmpty {
             return "Log.test(\(message))"
@@ -93,11 +93,11 @@ public struct LogErrorMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let message = node.argumentList.first?.expression else {
+        guard let message = node.arguments.first?.expression else {
             fatalError("compiler bug: the macro does not have any arguments")
         }
 
-        let arguments = node.argumentList.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
+        let arguments = node.arguments.dropFirst().map { "\($0.expression)" }.joined(separator: ", ")
 
         if arguments.isEmpty {
             return "Log.error(\(message))"
@@ -112,14 +112,14 @@ public struct LogCustomMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard node.argumentList.count >= 2 else {
+        guard node.arguments.count >= 2 else {
             fatalError("compiler bug: the macro does not have enough arguments")
         }
 
-        let category = node.argumentList.first!.expression
-        let message = node.argumentList.dropFirst().first!.expression
+        let category = node.arguments.first!.expression
+        let message = node.arguments.dropFirst().first!.expression
 
-        let arguments = node.argumentList.dropFirst(2).map { "\($0.expression)" }.joined(separator: ", ")
+        let arguments = node.arguments.dropFirst(2).map { "\($0.expression)" }.joined(separator: ", ")
 
         if arguments.isEmpty {
             return "Log.custom(category: \(category), \(message))"
