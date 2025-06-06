@@ -31,20 +31,20 @@ jobs:
 
       - name: DocC 문서 빌드
         run: |
-          # 1) LogMacro 스킴(docbuild)으로 빌드
+          # 1) LogMacro를 docbuild으로 빌드
           xcodebuild docbuild \
             -scheme LogMacro \
             -derivedDataPath /tmp/docbuild \
             -destination 'generic/platform=iOS'
 
-          # 2) .doccarchive → 정적 호스팅 가능한 HTML/CSS/JS로 변환
+          # 2) 생성된 .doccarchive를 정적 호스팅용 HTML/CSS/JS로 변환
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting \
             /tmp/docbuild/Build/Products/Debug-iphoneos/LogMacro.doccarchive \
             --hosting-base-path LogMacro \
             --output-path docs
 
-          # 3) 최상위에 리다이렉트용 index.html 생성
+          # 3) 최상위 docs/index.html에 리다이렉트 스크립트 추가
           echo '<script>window.location.href += "/documentation/logmacro"</script>' \
             > docs/index.html
 
