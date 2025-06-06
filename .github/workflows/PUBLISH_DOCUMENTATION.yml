@@ -1,16 +1,14 @@
 name: 문서 배포
 
 on:
-  # "main" 브랜치에 푸시할 때 마다 워크플로우 작동
   push:
     branches: [ "main" ]
 
-# GitHub Pages 에 배포하기 위한 GITHUB_TOKEN 권한 설정
 permissions:
   contents: read
   pages: write
   id-token: write
-# 동시성 배포 허용
+
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -18,33 +16,43 @@ concurrency:
 jobs:
   deploy:
     environment:
-      # GitHub Pages 로 배포하기 위한 필수 설정
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: macos-13  #최신버전
-    steps:
-    - name: 체크아웃 🛎️
-      uses: actions/checkout@v3
-    - name: Setup Xcode version
-      uses: maxim-lobanov/setup-xcode@v1 # xcode 버전 설정을 위함
-      with:
-        xcode-version: '15.0'
-    - name: DocC 문서 빌드
-      run: |
-        xcodebuild docbuild -scheme LogMacro \
-          -derivedDataPath /tmp/docbuild \
-          -destination 'generic/platform=iOS';
-        $(xcrun --find docc) process-archive \
-          transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/LogMacro.doccarchive \
-          --hosting-base-path package-docc-example \
-          --output-path docs;
-        echo '<script>window.location.href += "/documentation/logmacro"</script>' > docs/index.html
-    - name: artifact 업로드
-      uses: actions/upload-pages-artifact@v1
-      with:
-        # docs 경로에 있는 것만 업로드
-        path: 'docs'
-    - name: GitHub Pages 에 배포
-      id: deployment
-      uses: actions/deploy-pages@v1
+    runs-on: macos-13
 
+    steps:
+      - name: 체크아웃 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Xcode 15.0
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "15.0"
+
+      - name: DocC 문서 빌드
+        run: |
+          # 1) LogMacro 스킴(docbuild)으로 빌드
+          xcodebuild docbuild \
+            -scheme LogMacro \
+            -derivedDataPath /tmp/docbuild \
+            -destination 'generic/platform=iOS'
+
+          # 2) .doccarchive → 정적 호스팅 가능한 HTML/CSS/JS로 변환
+          $(xcrun --find docc) process-archive \
+            transform-for-static-hosting \
+            /tmp/docbuild/Build/Products/Debug-iphoneos/LogMacro.doccarchive \
+            --hosting-base-path LogMacro \
+            --output-path docs
+
+          # 3) 최상위에 리다이렉트용 index.html 생성
+          echo '<script>window.location.href += "/documentation/logmacro"</script>' \
+            > docs/index.html
+
+      - name: Pages 아티팩트 업로드
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs
+
+      - name: GitHub Pages 배포
+        id: deployment
+        uses: actions/deploy-pages@v1
