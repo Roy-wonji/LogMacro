@@ -1,14 +1,17 @@
 name: 문서 배포
 
 on:
+  # "main" 브랜치에 푸시할 때마다 워크플로우 작동
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
+# GitHub Pages에 배포하기 위한 GITHUB_TOKEN 권한 설정
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# 동시성 배포 허용
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -16,9 +19,10 @@ concurrency:
 jobs:
   deploy:
     environment:
+      # GitHub Pages로 배포하기 위한 필수 설정
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: macos-13
+    runs-on: macos-latest   # 최신 macOS 이미지 사용
 
     steps:
       - name: 체크아웃 🛎️
@@ -31,13 +35,13 @@ jobs:
 
       - name: DocC 문서 빌드
         run: |
-          # 1) LogMacro를 docbuild으로 빌드
+          # 1) LogMacro 스킴으로 DocC 아카이브 생성
           xcodebuild docbuild \
             -scheme LogMacro \
             -derivedDataPath /tmp/docbuild \
             -destination 'generic/platform=iOS'
 
-          # 2) 생성된 .doccarchive를 정적 호스팅용 HTML/CSS/JS로 변환
+          # 2) 생성된 .doccarchive → 정적 호스팅용 HTML/CSS/JS 변환
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting \
             /tmp/docbuild/Build/Products/Debug-iphoneos/LogMacro.doccarchive \
@@ -51,8 +55,8 @@ jobs:
       - name: Pages 아티팩트 업로드
         uses: actions/upload-pages-artifact@v1
         with:
-          path: docs
+          path: "docs"
 
-      - name: GitHub Pages 배포
+      - name: GitHub Pages에 배포
         id: deployment
         uses: actions/deploy-pages@v1
