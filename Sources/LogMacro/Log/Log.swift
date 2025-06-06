@@ -16,6 +16,11 @@ public struct Log {
   /// 기본 생성자
   public init() {}
   
+  // MARK: - OSLog 서브시스템 식별자
+  
+  /// 앱 번들 ID를 기본으로 사용합니다. 필요 시 변경 가능합니다.
+  private static let subsystem = Bundle.main.bundleIdentifier ?? "com.example.app"
+  
   // MARK: - LogLevel
   
   /// 지원하는 로그 레벨 및 커스텀 카테고리를 정의합니다.
@@ -46,7 +51,7 @@ public struct Log {
       case .error:
         return "🔴 ERROR"
       case .test:
-        return "🟡 Test"
+        return "🟡 TEST"
       case .custom(let category):
         return "🟢 \(category)"
       }
