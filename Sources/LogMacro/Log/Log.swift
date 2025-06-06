@@ -53,7 +53,7 @@ public struct Log {
     }
     
     /// `os_log`용 `OSLog` 인스턴스
-    fileprivate var osLog: OSLog {
+    @MainActor fileprivate var osLog: OSLog {
       switch self {
       case .debug:
         return OSLog.debug
@@ -98,7 +98,7 @@ public struct Log {
   ///   - DEBUG 빌드에서만 실행됩니다.
   ///   - iOS 14+/macOS 11.0+에서는 `Logger`를 사용하고,
   ///     그 이하 버전(iOS 12+/macOS 10.15+)에서는 `os_log`를 사용합니다.
-  static func log(
+  @MainActor static func log(
     _ message: Any,
     _ arguments: [Any],
     level: LogLevel
