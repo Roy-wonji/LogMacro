@@ -12,6 +12,9 @@
 ## 장점
 ✅ LogMacro를 사용하면, 좀더 편하게 쉽게 로그를 사용할수 있습니다!
 
+## documnet 문서 
+[Document](https://roy-wonji.github.io/LogMacro/documentation/logmacro/logcustom(_:_:_:))
+
 
 ## 기반
 이 프로젝트는 [OSLOG](https://developer.apple.com/documentation/os/oslog)을 기반으로 구현되었습니다.<br>
