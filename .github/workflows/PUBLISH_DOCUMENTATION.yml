@@ -33,24 +33,12 @@ jobs:
         with:
           xcode-version: "15.0"
 
-      - name: DocC 문서 빌드
+      - name: DocC 문서 빌드 (스크립트 실행)
         run: |
-          # 1) LogMacro 스킴으로 DocC 아카이브 생성
-          xcodebuild docbuild \
-            -scheme LogMacro \
-            -derivedDataPath /tmp/docbuild \
-            -destination 'generic/platform=iOS'
-
-          # 2) 생성된 .doccarchive → 정적 호스팅용 HTML/CSS/JS 변환
-          $(xcrun --find docc) process-archive \
-            transform-for-static-hosting \
-            /tmp/docbuild/Build/Products/Debug-iphoneos/LogMacro.doccarchive \
-            --hosting-base-path LogMacro \
-            --output-path docs
-
-          # 3) 최상위 docs/index.html에 리다이렉트 스크립트 추가
-          echo '<script>window.location.href += "/documentation/logmacro"</script>' \
-            > docs/index.html
+          # 1) 스크립트 실행 권한 부여
+          chmod +x ./GENERATE_DOCS.sh
+          # 2) 스크립트 실행
+          ./GENERATE_DOCS.sh
 
       - name: Pages 아티팩트 업로드
         uses: actions/upload-pages-artifact@v1
