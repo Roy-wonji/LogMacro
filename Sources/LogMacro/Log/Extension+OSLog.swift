@@ -21,7 +21,7 @@ extension OSLog {
   ///   ```swift
   ///   os_log("Request started", log: .network, type: .info)
   ///   ```
-  @MainActor static let network = OSLog(subsystem: subsystem, category: "Network")
+  static let network = OSLog(subsystem: subsystem, category: "Network")
   
   /// 디버그 레벨 로그를 위한 OSLog 인스턴스.
   ///
@@ -29,7 +29,7 @@ extension OSLog {
   ///   ```swift
   ///   os_log("Value: %{public}@", log: .debug, type: .debug, "\(value)")
   ///   ```
-  @MainActor static let debug = OSLog(subsystem: subsystem, category: "Debug")
+  static let debug = OSLog(subsystem: subsystem, category: "Debug")
   
   /// 정보성 로그를 위한 OSLog 인스턴스.
   ///
@@ -37,7 +37,7 @@ extension OSLog {
   ///   ```swift
   ///   os_log("User logged in", log: .info, type: .info)
   ///   ```
-  @MainActor static let info = OSLog(subsystem: subsystem, category: "Info")
+  static let info = OSLog(subsystem: subsystem, category: "Info")
   
   /// 에러 레벨 로그를 위한 OSLog 인스턴스.
   ///
@@ -45,7 +45,7 @@ extension OSLog {
   ///   ```swift
   ///   os_log("Failed to load data: %{public}@", log: .error, type: .error, error.localizedDescription)
   ///   ```
-  @MainActor static let error = OSLog(subsystem: subsystem, category: "Error")
+  static let error = OSLog(subsystem: subsystem, category: "Error")
   
   /// 테스트용 로그를 위한 OSLog 인스턴스.
   ///
@@ -53,5 +53,5 @@ extension OSLog {
   ///   ```swift
   ///   os_log("Test case passed", log: .test, type: .debug)
   ///   ```
-  @MainActor static let test = OSLog(subsystem: subsystem, category: "Test")
+  static let test = OSLog(subsystem: subsystem, category: "Test")
 }

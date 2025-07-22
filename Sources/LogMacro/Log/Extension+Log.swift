@@ -17,7 +17,7 @@ public extension Log {
   /// - Parameters:
   ///   - message: 로그에 남길 메시지
   ///   - arguments: 메시지 포맷에 전달할 추가 인자들
-  @MainActor static func debug(_ message: Any, _ arguments: Any...) {
+  static func debug(_ message: Any, _ arguments: Any...) {
     log(message, arguments, level: .debug)
   }
   
@@ -26,7 +26,7 @@ public extension Log {
   /// - Parameters:
   ///   - message: 테스트 로그 메시지
   ///   - arguments: 메시지 포맷에 전달할 추가 인자들
-  @MainActor static func test(_ message: Any, _ arguments: Any...) {
+   static func test(_ message: Any, _ arguments: Any...) {
     log(message, arguments, level: .debug)
   }
   
@@ -38,7 +38,7 @@ public extension Log {
   /// - Parameters:
   ///   - message: 로그에 남길 메시지
   ///   - arguments: 메시지 포맷에 전달할 추가 인자들
-  @MainActor static func info(_ message: Any, _ arguments: Any...) {
+  static func info(_ message: Any, _ arguments: Any...) {
     log(message, arguments, level: .info)
   }
   
@@ -49,7 +49,7 @@ public extension Log {
   /// - Parameters:
   ///   - message: 로그에 남길 메시지
   ///   - arguments: 메시지 포맷에 전달할 추가 인자들
-  @MainActor static func network(_ message: Any, _ arguments: Any...) {
+   static func network(_ message: Any, _ arguments: Any...) {
     log(message, arguments, level: .network)
   }
   
@@ -60,7 +60,7 @@ public extension Log {
   /// - Parameters:
   ///   - message: 로그에 남길 에러 메시지
   ///   - arguments: 메시지 포맷에 전달할 추가 인자들
-  @MainActor static func error(_ message: Any, _ arguments: Any...) {
+   static func error(_ message: Any, _ arguments: Any...) {
     log(message, arguments, level: .error)
   }
   
@@ -72,7 +72,7 @@ public extension Log {
   ///   - category: 로그 메시지 카테고리 식별자
   ///   - message: 로그에 남길 메시지
   ///   - arguments: 메시지 포맷에 전달할 추가 인자들
-  @MainActor static func custom(category: String, _ message: Any, _ arguments: Any...) {
+   static func custom(category: String, _ message: Any, _ arguments: Any...) {
     log(message, arguments, level: .custom(category: category))
   }
 }
