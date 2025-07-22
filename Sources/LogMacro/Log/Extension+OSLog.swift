@@ -7,7 +7,7 @@
 
 
 import Foundation
-import OSLog
+@preconcurrency import OSLog
 
 // MARK: - OSLog Extension
 
