@@ -28,10 +28,10 @@ jobs:
           # GITHUB_TOKEN으로 선언된 권한을 사용합니다.
           persist-credentials: true
 
-      - name: Set up Swift 5.0
+      - name: Set up Swift 5.5
         uses: fwal/setup-swift@v2
         with:
-          swift-version: "5.0.0"
+          swift-version: "5.5.0"
 
       - name: Generate documentation
         run: |
